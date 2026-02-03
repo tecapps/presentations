@@ -9,6 +9,9 @@ A system to let your machine know that DNS results come from the right place, an
 It provides resilience against domain takeover, failing to resolve if shenanigans are detected.
 
 ```mermaid
+---
+id: 91ab88e9-89b6-4eb8-95a3-03dea5b2b718
+---
 flowchart LR
     U(["User asks for a website"]) --> R(["Resolver asks the domain's DNS"])
     R --> A(["DNS server replies"]) & T(["Parent zone confirms key"])
@@ -42,6 +45,9 @@ That lifetime is usually a few months; 1-3 months is common.
 Since two bodies have to know the key, it can get out of sync.
 
 ```mermaid
+---
+id: c7ff230c-e75d-4f91-8f67-6e050719af4b
+---
 flowchart LR
     U(["User asks for a website"]) --> R(["Resolver asks the domain's DNS"])
     R -- "domain.tld" --> A(["DNS server replies"])
@@ -77,6 +83,9 @@ We now need to consider:
 When your domain registrar is also your DNS host, they can make sure the keys are kept in sync.
 
 ```mermaid
+---
+id: 1a951051-6670-4892-b093-578b22cd4294
+---
 flowchart LR
     KE(["Key expires"]) --> RG(["DNS host generates new key"])
     RG -- ".tld" --> RZ(["DNS host sends new key to zone"])
