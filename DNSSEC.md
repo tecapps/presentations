@@ -11,6 +11,8 @@ It provides resilience against domain takeover, failing to resolve if shenanigan
 ```mermaid
 ---
 id: 91ab88e9-89b6-4eb8-95a3-03dea5b2b718
+config:
+  layout: elk
 ---
 flowchart LR
     U(["User asks for a website"]) --> R(["Resolver asks the domain's DNS"])
@@ -47,6 +49,8 @@ Since two bodies have to know the key, it can get out of sync.
 ```mermaid
 ---
 id: c7ff230c-e75d-4f91-8f67-6e050719af4b
+config:
+  layout: elk
 ---
 flowchart LR
     U(["User asks for a website"]) --> R(["Resolver asks the domain's DNS"])
@@ -85,6 +89,8 @@ When your domain registrar is also your DNS host, they can make sure the keys ar
 ```mermaid
 ---
 id: 1a951051-6670-4892-b093-578b22cd4294
+config:
+  layout: elk
 ---
 flowchart LR
     KE(["Key expires"]) --> RG(["DNS host generates new key"])
@@ -105,6 +111,11 @@ flowchart LR
 When your domain registrar and DNS host are separate, each one can't coordinate with the other.
 
 ```mermaid
+---
+id: dcfe136e-adee-477f-9c05-903347e007fb
+config:
+  layout: elk
+---
 flowchart LR
     KE(["Key expires"]) --> RG(["DNS host generates new key"])
     RG -- ".tld" --> RZ(["DNS host can't update zone"])
