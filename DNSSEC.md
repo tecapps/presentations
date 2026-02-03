@@ -9,12 +9,8 @@ A system to let your machine know that DNS results come from the right place, an
 It provides resilience against domain takeover, failing to resolve if shenanigans are detected.
 
 ```mermaid
----
-config:
-  layout: elk
----
 flowchart LR
-    U(["User asks for a website"]) --> R@{ label: "Resolver asks the domain's DNS" }
+    U(["User asks for a website"]) --> R(["Resolver asks the domain's DNS"])
     R --> A(["DNS server replies"]) & T(["Parent zone confirms key"])
     A --> S(["Answer + digital seal"]) & K(["Public key"])
     S --> V{"Seal valid?"}
@@ -23,7 +19,6 @@ flowchart LR
     V -- Yes --> OK(["Show the website address"])
     V -- No --> FAIL(["Tampering detected! Fail to resolve, show an error"])
 
-    R@{ shape: stadium}
      T:::Pine
      K:::Pine
      OK:::Pine
@@ -47,12 +42,8 @@ That lifetime is usually a few months; 1-3 months is common.
 Since two bodies have to know the key, it can get out of sync.
 
 ```mermaid
----
-config:
-  layout: elk
----
 flowchart LR
-    U(["User asks for a website"]) --> R@{ label: "Resolver asks the domain's DNS" }
+    U(["User asks for a website"]) --> R(["Resolver asks the domain's DNS"])
     R -- "domain.tld" --> A(["DNS server replies"])
     R -- ".tld" --> T(["Parent zone<br>confirms old key"])
     A --> S(["Answer + digital seal"]) & K(["New public key"])
@@ -61,7 +52,6 @@ flowchart LR
     T --> V
     V -- <br> --> FAIL(["Show an error"])
 
-    R@{ shape: stadium}
      T:::Peach
      K:::Pine
 
@@ -87,10 +77,6 @@ We now need to consider:
 When your domain registrar is also your DNS host, they can make sure the keys are kept in sync.
 
 ```mermaid
----
-config:
-  layout: elk
----
 flowchart LR
     KE(["Key expires"]) --> RG(["DNS host generates new key"])
     RG -- ".tld" --> RZ(["DNS host sends new key to zone"])
@@ -110,19 +96,14 @@ flowchart LR
 When your domain registrar and DNS host are separate, each one can't coordinate with the other.
 
 ```mermaid
----
-config:
-  layout: elk
----
 flowchart LR
     KE(["Key expires"]) --> RG(["DNS host generates new key"])
-    RG -- ".tld" --> RZ@{ label: "DNS host can't update zone" }
+    RG -- ".tld" --> RZ(["DNS host can't update zone"])
     RZ --> EX(["Zone is left with expired key"])
     RG -- "domain.tld" --> DH(["DNS host updates DNS with new key"])
     EX --> YAY(["Key mismatch! DNS stops resolving."])
     DH --> YAY
 
-    RZ@{ shape: stadium}
      RG:::Pine
      RZ:::Peach
      EX:::Rose
@@ -136,7 +117,9 @@ flowchart LR
 
 ## So how does it ever work for different companies?
 
-Simple. **You are responsible for manually updating the key**. You have to do this depending on the lifetime of the key.
+Simple. **You are responsible for manually updating the key**.
+
+You have to do this depending on the lifetime of the key.
 
 ---
 
