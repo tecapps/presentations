@@ -38,7 +38,7 @@ flowchart LR
 
 We need to generate a key with a lifetime, which we will use to cryptographically sign DNS results.
 
-That lifetime is usually a few months; 3 months is common.
+That lifetime is usually a few months; 1-3 months is common.
 
 ---
 
